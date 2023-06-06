@@ -9,25 +9,27 @@ from psycopg2.extras import RealDictCursor
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-conn = psycopg2.connect(
-    host="localhost",
-    database=os.getenv('DB_NAME'),
-    user=os.getenv('DB_USERNAME'),
-    password=os.getenv('DB_PASSWORD')
-)
 
-db_cursor = conn.cursor(cursor_factory=RealDictCursor)
+#app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
+#conn = psycopg2.connect(
+#    host="localhost",
+ #   database=os.getenv('DB_NAME'),
+ #   user=os.getenv('DB_USERNAME'),
+ #   password=os.getenv('DB_PASSWORD')
+#)
 
-from JustRead import filters
+#db_cursor = conn.cursor(cursor_factory=RealDictCursor)
+
+#login_manager = LoginManager(app)
+#login_manager.login_view = 'login'
+#login_manager.login_message_category = 'info'
+
+#from JustRead import filters
 from JustRead.blueprints.Login.routes import Login
-from JustRead.blueprints.Produce.routes import Produce
+#from JustRead.blueprints.Produce.routes import Produce
 
 app.register_blueprint(Login)
-app.register_blueprint(Produce)
+#app.register_blueprint(Produce)
 

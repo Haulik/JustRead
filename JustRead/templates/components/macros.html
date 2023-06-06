@@ -1,5 +1,5 @@
 {% macro cta_button (class='') %}
-    <a class="btn {{ class }}" href="{{ url_for('Produce.produce') }}">
+    <a class="btn {{ class }}" >
         <span>
             <img src="{{ url_for('static', filename='images/icons/cart.svg') }}" alt="cart" class="icon">
             Start shopping
@@ -73,9 +73,9 @@
             {% if date %}
                 <p>Date: {{ date }}</p>
             {% endif %}
-            <p>Category: {{ product.category|format_data }}</p>
-            <p>Item: {{ product.item|format_data }}</p>
-            <p>Variety: {{ product.variety|format_data }}</p>
+            <p>Category: {{ product.category }}</p>
+            <p>Item: {{ product.item }}</p>
+            <p>Variety: {{ product.variety}}</p>
             <p>Price: £{{ product.price }} / {{ product.unit }}</p>
             {% if not date %}
                 <p>In stock: {{ product.available }}</p>
