@@ -12,4 +12,20 @@ DELETE FROM Publishing_House;
 
 
 INSERT INTO Publishing_House(name)
-VALUES ();
+VALUES ('Publishing1');
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS prints CASCADE;
+
+CREATE TABLE IF NOT EXISTS prints(
+    Pid serial unique not null PRIMARY KEY,
+    Publishing_House int not null REFERENCES Publishing_House(Pid) on DELETE CASCADE,
+    book int not null REFERENCES Publishing_House(Pid) on DELETE CASCADE,
+);
+
+DELETE FROM prints;
