@@ -68,19 +68,19 @@ a, a:visited, a:focus, a:active {
 }
 
 .btn--primary {
-    background-color: var(--red);
+    background-color: var(--green);
 }
 
 .btn--secondary {
     background-color: transparent;
-    color: var(--red);
-    border: 1px solid var(--red);
+    color: var(--green);
+    border: 1px solid var(--green);
 }
 
 .btn--tertiary {
     display: block;
     background-color: transparent;
-    color: var(--red);
+    color: var(--green);
     text-align: left;
     padding: 0;
 }
@@ -116,8 +116,8 @@ img {
     box-shadow: none;
 }
 
-.icon--red {
-    filter: var(--filter-red);
+.icon--green {
+    filter: var(--filter-green);
 }
 
 [hidden] {

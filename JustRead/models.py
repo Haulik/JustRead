@@ -1,84 +1,88 @@
-from typing import Dict
-
 from flask_login import UserMixin
-from psycopg2 import sql
+from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
-from JustRead import login_manager, db_cursor, conn, app
+Base = declarative_base()
+
+class User(Base, UserMixin):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    user_name = Column(String(50), unique=True)
+    full_name = Column(String(50))
+    password = Column(String(120))
+    address = Column(String(200))
+    # Foreign key relationship to BookStore
+    bookstore_id = Column(Integer, ForeignKey('bookstore.id'))
+    bookstore = relationship('BookStore', back_populates='user')
+    # Foreign key relationship to Customer
+    customer_id = Column(Integer, ForeignKey('customers.id'))
+    customer = relationship('Customer', back_populates='user')
+    # Foreign key relationship to Courier
+    courier_id = Column(Integer, ForeignKey('courier.id'))
+    courier = relationship('Courier', back_populates='user')
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    user_sql = sql.SQL("""
-    SELECT * FROM Users
-    WHERE pk = %s
-    """).format(sql.Identifier('pk'))
+class BookStore(User):
+    __tablename__ = 'bookstore'
 
-    db_cursor.execute(user_sql, (int(user_id),))
-    return User(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
-
-
-class ModelUserMixin(dict, UserMixin):
-    @property
-    def id(self):
-        return self.pk
-
-
-class ModelMixin(dict):
-    pass
-
-
-class User(ModelUserMixin):
-    def __init__(self, user_data: Dict):
-        super(User, self).__init__(user_data)
-        self.pk = user_data.get('pk')
-        self.full_name = user_data.get('full_name')
-        self.user_name = user_data.get('user_name')
-        self.password = user_data.get('password')
+    id = Column(Integer, primary_key=True)
+    # Additional columns specific to BookStore
 
 
 class Customer(User):
-    def __init__(self, user_data: Dict):
-        super().__init__(user_data)
+    __tablename__ = 'customers'
+
+    id = Column(Integer, primary_key=True)
+    # Additional columns specific to Customer
 
 
-class Farmer(User):
-    def __init__(self, user_data: Dict):
-        super().__init__(user_data)
+class Courier(User):
+    __tablename__ = 'courier'
+
+    id = Column(Integer, primary_key=True)
+    # Additional columns specific to Courier
 
 
-if __name__ == '__main__':
-    user_data = dict(full_name='a', user_name='b', password='c')
-    user = Farmer(user_data)
-    print(user)
+class PublishingHouse(Base):
+    __tablename__ = 'publishing_house'
+
+    pid = Column(Integer, primary_key=True)
+    name = Column(String(30))
 
 
-class Produce(ModelMixin):
-    def __init__(self, produce_data: Dict):
-        super(Produce, self).__init__(produce_data)
-        self.pk = produce_data.get('pk')
-        self.category = produce_data.get('category')
-        self.item = produce_data.get('item')
-        self.unit = produce_data.get('unit')
-        self.variety = produce_data.get('variety')
-        self.price = produce_data.get('price')
-        # From JOIN w/ Sell relation
-        self.available = produce_data.get('available')
-        self.farmer_name = produce_data.get('farmer_name')
-        self.farmer_pk = produce_data.get('farmer_pk')
+class Order(Base):
+    __tablename__ = 'orders'
+
+    oid = Column(Integer, primary_key=True)
+    address = Column(String(30))
+    date = Column(String(50))
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User')
+    # Additional columns specific to Order
 
 
-class Sell(ModelMixin):
-    def __init__(self, sell_data: Dict):
-        super(Sell, self).__init__(sell_data)
-        self.available = sell_data.get('available')
-        self.farmer_pk = sell_data.get('farmer_pk')
-        self.produce_pk = sell_data.get('produce_pk')
+class Book(Base):
+    __tablename__ = 'books'
+
+    isbn13 = Column(String(13), primary_key=True)
+    title = Column(String(30))
+    subtitle = Column(String(30))
+    categories = Column(String(30))
+    thumbnail = Column(String(30))
+    description = Column(String)
+    published_year = Column(Integer)
+    average_rating = Column(Float)
+    num_pages = Column(Integer)
+    ratings_count = Column(Integer)
+    # Additional columns specific to Book
 
 
-class ProduceOrder(ModelMixin):
-    def __init__(self, produce_order_data: Dict):
-        super(ProduceOrder, self).__init__(produce_order_data)
-        self.pk = produce_order_data.get('pk')
-        self.customer_pk = produce_order_data.get('customer_pk')
-        self.farmer_pk = produce_order_data.get('farmer_pk')
-        self.produce_pk = produce_order_data.get('produce_pk')
+class Author(Base):
+    __tablename__ = 'authors'
+
+    pid = Column(Integer, primary_key=True)
+    name = Column(String(30))
+    # Additional columns specific to Author

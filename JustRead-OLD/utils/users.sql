@@ -1,13 +1,11 @@
 DROP TABLE IF EXISTS Users CASCADE;
 
-CREATE TABLE IF NOT EXISTS Users (
-    id serial not null PRIMARY KEY,
-    user_name varchar(50) UNIQUE,
+CREATE TABLE IF NOT EXISTS Users(
+	id serial not null PRIMARY KEY,
+	user_name varchar(50) UNIQUE,
     full_name varchar(50),
-    password varchar(120),
+	password varchar(120),
     address varchar(200),
-    -- Add a foreign key reference to the 'bookstore' table
-    bookstore_id int REFERENCES BookStore(id)
 );
 
 --CREATE INDEX IF NOT EXISTS users_index

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="content-container">
+            <h1>Welcome to JustRead!</h1>
+            <p>Discover a world of books at your fingertips.</p>
+            <a href="{{ url_for('Login.home') }}" class="btn">Browse Books</a>
+        </div>
+    </section>
+{% endblock %}
+

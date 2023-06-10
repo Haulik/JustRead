@@ -1,9 +1,9 @@
 from flask import render_template, request, Blueprint
 from flask_login import login_required, current_user
 
-from JustRead.forms import FilterProduceForm, AddProduceForm, BuyProduceForm, RestockProduceForm
-from JustRead.models import Produce as ProduceModel, ProduceOrder
-from JustRead.queries import insert_produce, get_produce_by_pk, Sell, \
+from JustRead3.forms import FilterProduceForm, AddProduceForm, BuyProduceForm, RestockProduceForm
+from JustRead3.models import Produce as ProduceModel, ProduceOrder
+from JustRead3.queries import insert_produce, get_produce_by_pk, Sell, \
     insert_sell, get_all_produce_by_farmer, get_produce_by_filters, insert_produce_order, update_sell, \
     get_orders_by_customer_pk
 
