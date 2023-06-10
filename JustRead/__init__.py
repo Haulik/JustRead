@@ -39,6 +39,3 @@ from JustRead.blueprints.Books.routes import Books
 app.register_blueprint(Login)
 app.register_blueprint(Books)
 
-@app.teardown_appcontext
-def close_connection(exception=None):
-    conn.close()

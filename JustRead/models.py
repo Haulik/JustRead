@@ -6,23 +6,43 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
-class User(Base, UserMixin):
-    __tablename__ = 'users'
+from sqlalchemy.ext.declarative import declared_attr
+
+class UserMixin(Base):
+    __abstract__ = True
 
     id = Column(Integer, primary_key=True)
     user_name = Column(String(50), unique=True)
     full_name = Column(String(50))
     password = Column(String(120))
     address = Column(String(200))
-    # Foreign key relationship to BookStore
-    bookstore_id = Column(Integer, ForeignKey('bookstore.id'))
-    bookstore = relationship('BookStore', back_populates='user')
-    # Foreign key relationship to Customer
-    customer_id = Column(Integer, ForeignKey('customers.id'))
-    customer = relationship('Customer', back_populates='user')
-    # Foreign key relationship to Courier
-    courier_id = Column(Integer, ForeignKey('courier.id'))
-    courier = relationship('Courier', back_populates='user')
+
+    @declared_attr
+    def bookstore_id(cls):
+        return Column(Integer, ForeignKey('bookstore.id'))
+
+    @declared_attr
+    def bookstore(cls):
+        return relationship('BookStore', back_populates='users')
+
+
+class User(UserMixin):
+    __tablename__ = 'users'
+
+    # Define additional columns specific to User
+
+
+class Customer(User):
+    __tablename__ = 'customers'
+
+    id = Column(Integer, ForeignKey('users.id'), primary_key=True)
+    # Additional columns specific to Customer
+
+    # Define the relationship with User
+    user = relationship('User', back_populates='customer', uselist=False)
+
+    # Define the relationship with Bookstore and specify the foreign key columns
+    bookstore = relationship('BookStore', back_populates='customer', uselist=False, foreign_keys='BookStore.customer_id')
 
 
 class BookStore(User):
@@ -31,19 +51,18 @@ class BookStore(User):
     id = Column(Integer, primary_key=True)
     # Additional columns specific to BookStore
 
-
-class Customer(User):
-    __tablename__ = 'customers'
-
-    id = Column(Integer, primary_key=True)
-    # Additional columns specific to Customer
+    # Define the relationship with User
+    users = relationship('User', back_populates='bookstore')
 
 
 class Courier(User):
     __tablename__ = 'courier'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     # Additional columns specific to Courier
+
+    # Define the relationship with User
+    user = relationship('User', back_populates='courier', uselist=False)
 
 
 class PublishingHouse(Base):
