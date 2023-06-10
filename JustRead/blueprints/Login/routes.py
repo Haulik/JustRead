@@ -19,12 +19,10 @@ def load_user(user_id):
     # Return the user object if found, or None if not found
     return User.query.get(int(user_id))
 
-
 @login_manager.unauthorized_handler
 def unauthorized():
     # Handle unauthorized access
     return redirect('/login')  # Replace with your desired URL for unauthorized users
-
 
 @Login.route("/")
 @Login.route("/home")
@@ -56,8 +54,6 @@ def login():
                 return redirect(next_page) if next_page else redirect('/home')
     return render_template('pages/login.html', form=form)
 
-
-
 @Login.route("/signup", methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
@@ -83,8 +79,6 @@ def signup():
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect('/home')
     return render_template('pages/signup.html', form=form)
-
-
 
 @Login.route("/logout")
 @login_required
