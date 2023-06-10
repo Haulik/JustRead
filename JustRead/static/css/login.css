@@ -35,3 +35,25 @@ main {
 .form-wrapper .btn {
     margin-top: var(--margin-xl);
 }
+
+
+.form-wrapper {
+    background-color: #FFC0CB;
+}
+
+.form-group {
+    color: white;
+}
+
+.form-group label {
+    color: white;
+}
+
+.form-group input {
+    background-color: white;
+}
+
+.form-group .btn {
+    background-color: white;
+    color: #000000;
+}

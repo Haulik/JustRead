@@ -75,10 +75,10 @@ class UserSignupForm(FlaskForm):
 class UserLoginForm(FlaskForm):
     user_name = StringField('Username',
                             validators=[DataRequired(), Length(min=2, max=50)],
-                            render_kw=dict(placeholder='Username'))
+                            render_kw=dict(placeholder='Username', style='color: white'))  # Set placeholder text color to white
     password = PasswordField('Password',
                              validators=[DataRequired()],
-                             render_kw=dict(placeholder='Password'))
+                             render_kw=dict(placeholder='Password', style='color: white'))  # Set placeholder text color to white
     submit = SubmitField('Login')
 
     def validate_password(self, field):
