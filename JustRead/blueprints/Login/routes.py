@@ -5,7 +5,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 from JustRead.models import User, BookStore, Customer, Courier
-from JustRead.queries import get_user_by_user_name, insert_bookStore, insert_customer
+from JustRead.queries import get_user_by_user_name, insert_bookStore, insert_customer, insert_courier
 from JustRead.utils.choices import UserTypeChoices
 from JustRead.forms import UserLoginForm, UserSignupForm
 
@@ -76,7 +76,7 @@ def signup():
                 insert_customer(customer)
             elif form.user_type.data == UserTypeChoices.values()[2]:
                 courier = Courier(form.data)
-                insert_customer(courier)
+                insert_courier(courier)
             user = get_user_by_user_name(form.user_name.data)
             if user:
                 login_user(user, remember=True)

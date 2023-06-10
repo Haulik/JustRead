@@ -77,10 +77,10 @@ def insert_customer(customer: Customer):
     db_cursor.execute(sql, (customer.user_name, customer.full_name, customer.password, customer.address))
     conn.commit()
 
-def insert_customer(Courier: Courier):
+def insert_courier(courier: Courier):
     sql = """
     INSERT INTO Courier(user_name, full_name, password, address)
     VALUES (%s, %s, %s, %s)
     """
-    db_cursor.execute(sql, (Courier.user_name, Courier.full_name, Courier.password, Courier.address))
+    db_cursor.execute(sql, (courier.user_name, courier.full_name, courier.password, courier.address))
     conn.commit()
