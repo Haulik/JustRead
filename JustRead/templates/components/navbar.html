@@ -9,6 +9,7 @@
                 <span class="text--gray">Welcome {{ current_user.user_name }}!</span>
                 <a href="{{ url_for("Login.logout") }}">Logout</a>
             {% else %}
+                <a class="text--gray" href="{{ url_for("Login.signup") }}">Sign up</a>
                 <a href="{{ url_for("Login.login") }}">Login</a>
             {% endif %}
         </div>

@@ -58,6 +58,9 @@ class UserSignupForm(FlaskForm):
     password_repeat = PasswordField('Repeat Password',
                                     validators=[DataRequired()],
                                     render_kw=dict(placeholder='Password'))
+    address = StringField('Address',
+                            validators=[DataRequired(), Length(min=2, max=100)],
+                            render_kw=dict(placeholder='Address'))
     user_type = SelectField('User type',
                             validators=[DataRequired()],
                             choices=UserTypeChoices.choices())

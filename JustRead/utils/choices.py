@@ -32,7 +32,7 @@ df = pd.read_csv(DATASET_PATH, sep=',')
 #ProduceVarietyChoices = ModelChoices(df.variety.unique())
 #ProduceUnitChoices = ModelChoices(df.unit.unique())
 
-UserTypeChoices = ModelChoices(['BookStore', 'Customer'])
+UserTypeChoices = ModelChoices(['BookStore', 'Customer', 'Courier'])
 
 if __name__ == '__main__':
     print(df.item.unique())
