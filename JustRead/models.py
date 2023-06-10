@@ -3,54 +3,66 @@ from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from psycopg2 import sql
+from typing import Dict
+from JustRead import login_manager, db_cursor, conn, app
+
 
 Base = declarative_base()
 
-class User(Base, UserMixin):
-    __tablename__ = 'users'
+from sqlalchemy.ext.declarative import declared_attr
 
-    id = Column(Integer, primary_key=True)
-    user_name = Column(String(50), unique=True)
-    full_name = Column(String(50))
-    password = Column(String(120))
-    address = Column(String(200))
-    # Foreign key relationship to BookStore
-    bookstore_id = Column(Integer, ForeignKey('bookstore.id'))
-    bookstore = relationship('BookStore', back_populates='user')
-    # Foreign key relationship to Customer
-    customer_id = Column(Integer, ForeignKey('customers.id'))
-    customer = relationship('Customer', back_populates='user')
-    # Foreign key relationship to Courier
-    courier_id = Column(Integer, ForeignKey('courier.id'))
-    courier = relationship('Courier', back_populates='user')
+@login_manager.user_loader
+def load_user(user_id):
+    user_sql = sql.SQL("""
+    SELECT * FROM Users
+    WHERE pk = %s
+    """).format(sql.Identifier('pk'))
+
+    db_cursor.execute(user_sql, (int(user_id),))
+    return User(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+
+
+
+class ModelUserMixin(UserMixin):
+    @property
+    def id(self):
+        return self.pk
+
+
+class ModelMixin:
+    pass
+
+
+class User(ModelUserMixin, ModelMixin):
+    def __init__(self, user_data: Dict):
+        self.pk = user_data.get('pk')
+        self.full_name = user_data.get('full_name')
+        self.user_name = user_data.get('user_name')
+        self.password = user_data.get('password')
+        self.address = user_data.get('address')
+        
+    def check_password(self, password):
+        return password == self.password
 
 
 class BookStore(User):
-    __tablename__ = 'bookstore'
-
-    id = Column(Integer, primary_key=True)
-    # Additional columns specific to BookStore
-
-
-class Customer(User):
-    __tablename__ = 'customers'
-
-    id = Column(Integer, primary_key=True)
-    # Additional columns specific to Customer
+    def __init__(self, user_data: Dict):
+        super().__init__(user_data)
 
 
 class Courier(User):
-    __tablename__ = 'courier'
-
-    id = Column(Integer, primary_key=True)
-    # Additional columns specific to Courier
+    def __init__(self, user_data: Dict):
+        super().__init__(user_data)
 
 
-class PublishingHouse(Base):
-    __tablename__ = 'publishing_house'
+class PublishingHouse(User):
+    pass
 
-    pid = Column(Integer, primary_key=True)
-    name = Column(String(30))
+class Customer(User):
+    def __init__(self, user_data: Dict):
+        super().__init__(user_data)
+
 
 
 class Order(Base):

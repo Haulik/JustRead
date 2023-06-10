@@ -12,6 +12,7 @@ def get_user_by_user_name(user_name):
     return user
 
 
+
 # def insert_sell(sell: Sell):
 #     sql = """
 #     INSERT INTO Sell(farmer_pk, produce_pk)

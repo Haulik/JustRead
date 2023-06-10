@@ -5,7 +5,12 @@
             <a href="{{ url_for("Login.home") }}">All Books</a>
         </div>
         <div class="login-button">
-            <a href="{{ url_for("Login.login") }}">Login</a>
+            {% if current_user.is_authenticated %}
+                <span class="text--gray">Welcome {{ current_user.user_name }}!</span>
+                <a href="{{ url_for("Login.logout") }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for("Login.login") }}">Login</a>
+            {% endif %}
         </div>
     </div>
 </nav>
