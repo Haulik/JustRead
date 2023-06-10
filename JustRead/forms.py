@@ -86,4 +86,9 @@ class UserLoginForm(FlaskForm):
         if user is None:
             raise ValidationError(f'User name "{self.user_name.data}" does not exist.')
         if user.password != self.password.data:
+            print(user.password)
+            print(user.full_name)
+            print(user.user_name)
+            print(user.address)
+            print(self.password.data)
             raise ValidationError(f'User name or password are incorrect.')

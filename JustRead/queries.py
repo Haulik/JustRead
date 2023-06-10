@@ -4,19 +4,11 @@ from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse,
 
 def get_user_by_user_name(user_name):
     sql = """
-    SELECT * FROM users
+    SELECT * FROM Users
     WHERE user_name = %s
     """
     db_cursor.execute(sql, (user_name,))
-    row = db_cursor.fetchone()
-    user = User(
-        id=row['id'],
-        user_name=row['user_name'],
-        full_name=row['full_name'],
-        password=row['password'],
-        address=row['address']
-        # Add other attributes here if needed
-    ) if row else None
+    user = User(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
     return user
 
 

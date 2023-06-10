@@ -46,14 +46,15 @@ def style_guide():
 @Login.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect('/home')  # Replace with your desired URL for logged-in users
+        return redirect('/home')
     form = UserLoginForm()
-    if form.validate_on_submit():
-        user = get_user_by_user_name(form.username.data)
-        if user and user.check_password(form.password.data):
-            login_user(user)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect('/home')  # Replace with your desired URL after login
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user = get_user_by_user_name(form.user_name.data)
+            if user and user['password'] == form.password.data:
+                login_user(user, remember=True)
+                next_page = request.args.get('next')
+                return redirect(next_page) if next_page else redirect('/home')
     return render_template('pages/login.html', form=form)
 
 
