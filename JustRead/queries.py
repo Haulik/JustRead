@@ -49,3 +49,38 @@ def get_books_by_filters(category=None, title=None, author=None, year=None, rati
     return books
 
 
+
+# INSERT QUERIES
+def insert_user(user: User):
+    sql = """
+    INSERT INTO Users(user_name, full_name, password, address)
+    VALUES (%s, %s, %s, %s)
+    """
+    db_cursor.execute(sql, (user.user_name, user.full_name, user.password, user.address))
+    conn.commit()
+
+
+def insert_bookStore(bookStore: BookStore):
+    sql = """
+    INSERT INTO bookStore(user_name, full_name, password, address)
+    VALUES (%s, %s, %s, %s)
+    """
+    db_cursor.execute(sql, (bookStore.user_name, bookStore.full_name, bookStore.password, bookStore.address))
+    conn.commit()
+
+
+def insert_customer(customer: Customer):
+    sql = """
+    INSERT INTO Customers(user_name, full_name, password, address)
+    VALUES (%s, %s, %s, %s)
+    """
+    db_cursor.execute(sql, (customer.user_name, customer.full_name, customer.password, customer.address))
+    conn.commit()
+
+def insert_customer(Courier: Courier):
+    sql = """
+    INSERT INTO Courier(user_name, full_name, password, address)
+    VALUES (%s, %s, %s, %s)
+    """
+    db_cursor.execute(sql, (Courier.user_name, Courier.full_name, Courier.password, Courier.address))
+    conn.commit()
