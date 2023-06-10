@@ -20,16 +20,8 @@ def load_user(user_id):
     """).format(sql.Identifier('pk'))
 
     db_cursor.execute(user_sql, (int(user_id),))
-    user_data = db_cursor.fetchone()
-    if user_data:
-        user_type = user_data.get('user_type')
-        if user_type == 'bookstore':
-            return BookStore(user_data)
-        elif user_type == 'courier':
-            return Courier(user_data)
-        elif user_type == 'publishinghouse':
-            return PublishingHouse(user_data)
-    return None
+    return User(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+
 
 
 class ModelUserMixin(UserMixin):
@@ -49,6 +41,9 @@ class User(ModelUserMixin, ModelMixin):
         self.user_name = user_data.get('user_name')
         self.password = user_data.get('password')
         self.address = user_data.get('address')
+        
+    def check_password(self, password):
+        return password == self.password
 
 
 class BookStore(User):

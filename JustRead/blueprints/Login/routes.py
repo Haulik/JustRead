@@ -51,11 +51,12 @@ def login():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = get_user_by_user_name(form.user_name.data)
-            if user and user['password'] == form.password.data:
+            if user and user.check_password(form.password.data):
                 login_user(user, remember=True)
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect('/home')
     return render_template('pages/login.html', form=form)
+
 
 
 @Login.route("/logout")

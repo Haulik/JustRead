@@ -58,3 +58,9 @@ footer > div {
     justify-content: start;
 }
 
+.login-button {
+    display: flex;
+    align-items: center;
+    gap: var(--margin-xl); /* Increase the gap value to add more space */
+}
+
