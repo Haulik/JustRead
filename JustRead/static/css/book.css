@@ -3,24 +3,28 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
+    background-color: #f2f2f2;
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 30px;
+    color: #333;
 }
 
 .book-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
 }
 
 .book-card {
     width: 300px;
-    border: 1px solid #ddd;
-    padding: 10px;
+    background-color: #fff;
     border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 15px;
     text-align: center;
 }
 
@@ -28,12 +32,74 @@ h1 {
     width: 100px;
     height: 100px;
     object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .book-card h2 {
-    margin-top: 10px;
+    margin: 1px 0 10px;
+    font-size: 20px;
+    color: #333;
 }
 
-.book-card p {
-    margin: 10px 0;
+.book-card .details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
 }
+
+.book-card .details p {
+    margin: 5px 0;
+    color: #666;
+    flex-basis: 50%;
+    text-align: left;
+}
+
+.book-card .description {
+    padding: 0 15px;
+    text-align: left;
+    color: #666;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.book-card .description p {
+    margin: 5px 0;
+    color: #666;
+    flex-basis: 50%;
+    text-align: left;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .smaller-btn {
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+  .btn2, a.btn2 {
+    background-color: var(--green);
+    color: var(--white);
+    display: grid;
+    place-items: center;
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    height: var(--height);
+    width: var(--width);
+    transition: filter, transform .3s ease-in-out;
+    padding: 0 var(--margin-md);
+    min-width: max-content;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
