@@ -3,13 +3,13 @@
 
 :root {
     /* Colors */
-    --black: #111812;
-    --gray-dark: rgba(17, 24, 8, .8);
-    --gray: rgba(17, 24, 8, .4);
-    --gray-light: rgba(17, 24, 8, .1);
+    --black: #83253f;
+    --gray-dark: #83253f;
+    --gray: #83253f;
+    --gray-light:#83253f;
     --white: #F5F5F5;
 
-    --green: #4A9655;
+    --green: #b75e7c;
     --red: #CB1C01;
     --copper: #B37E42;
 
