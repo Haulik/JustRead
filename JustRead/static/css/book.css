@@ -1,0 +1,39 @@
+/* CSS styles for the book listing */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.book-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.book-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.book-card h2 {
+    margin-top: 10px;
+}
+
+.book-card p {
+    margin: 10px 0;
+}

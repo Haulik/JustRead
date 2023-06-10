@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% from "components/macros.html" import cta_button %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Book Listing</h1>
+    <div class="book-container">
+        <!-- Book 1 -->
+        <div class="book-card">
+            <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
+            <h2>Book 1 Title</h2>
+            <p>Author: Author 1</p>
+            <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="book-card">
+            <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 2">
+            <h2>Book 2 Title</h2>
+            <p>Author: Author 2</p>
+            <p>Description: Nulla commodo magna quis fermentum posuere.</p>
+        </div>
+
+        <!-- Add more book cards as needed -->
+
+    </div>
+{% endblock %}
+
