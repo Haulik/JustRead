@@ -4,7 +4,7 @@
 Clone / download repository files and run the following to install the required packages (preferably within a venv):
 	pip install -r requirements.txt
 
-Create a new database in pgAdmin named JustRead and create an .env file and add the following to the env.file:
+Create a new database in pgAdmin named Just Read and create an .env file and add the following to the env.file:
 	SECRET_KEY=<secret_key>
 	DB_USERNAME=postgres || <postgres_user_name>
 	DB_PASSWORD=<postgres_user_password>
@@ -46,6 +46,12 @@ Both implemented blueprints come with a routes.py file that initialize a Bluepri
 - Books:
 	- __/books__: Search page for books in the database
 
+## How to interact with our web-app
+- As a customer: go to the top, right-hand corner and press “Sign up”. Enter your details and choose “Customer” at the bottom and press “Sign up”. Then you can press “Browse books” or “All books” to see available books, or you can view your orders by pressing “Your orders”. If you wish to buy a book, simply press “Buy book” and then “Yes, buy it”. This will move your chosen book to the “Your orders”.
+- As a courier: go to the top, right-hand corner and press “Sign up”. Enter your details and choose “Courier” at the bottom and press “Sign up”. Then you can press “Your orders” to view orders.
+- As a bookstore: go to the top, right-hand corner and press “Sign up”. Enter your details and choose “Bookstore” at the bottom and press “Sign up”. Then you can add books using “Add books”  at the top menu bar, or if you go to “All books” you can also delete books.
+
 # Known issues
 - We meant to implement the E/R diagram as included in the folder. However, due to the time constraints of this assignment, we did not manage to do this fully. Therefore the “rating” relation has not been implemented completely and in our project only book stores can rate a book when adding a book. Thus the customer can give ratings to neither book stores nor to books.
 - Furthermore, we have included, but not fully implemented the courier entity. This is also due to the time constraints of this assignment as well as to the complexity of such an implementation.
+- Finally, it should be noted that all features are visible to all the different types of users, but they are only interactable for the relevant user. I.e. the “Add books” option is available to all users, but only a book store can actually use it.
