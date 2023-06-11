@@ -16,16 +16,15 @@ class FilterBookForm(FlaskForm):
     submit = SubmitField('Filter')
 
 class AddBookForm(FlaskForm):
-    isbn13 = StringField('ISBN-13', validators=[DataRequired(), Length(max=20)])
     title = StringField('Title', validators=[DataRequired(), Length(max=1000)])
     authors = StringField('Authors', validators=[DataRequired(), Length(max=1000)])
     categories = StringField('Categories', validators=[DataRequired(), Length(max=1000)])
     thumbnail = StringField('Thumbnail', validators=[DataRequired(), Length(max=1000)])
     description = StringField('Description', validators=[DataRequired(), Length(max=2000)])
-    published_year = StringField('Published Year', validators=[DataRequired()])
+    published_year = IntegerField('Published Year', validators=[DataRequired()])
     average_rating = FloatField('Average Rating', validators=[DataRequired(), NumberRange(min=0, max=5)])
-    num_pages = StringField('Number of Pages', validators=[DataRequired()])
-    ratings_count = StringField('Ratings Count', validators=[DataRequired()])
+    num_pages = IntegerField('Number of Pages', validators=[DataRequired()])
+    ratings_count = IntegerField('Ratings Count', validators=[DataRequired()])
     submit = SubmitField('Add Book')
 
 class UserLoginForm(FlaskForm):

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% from "components/macros.html" import form_errors %}
+
+{% block title %}Add Book{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="form-wrapper">
+        <h1>Add Book</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.title.label }}
+                {{ form.title }}
+
+                {{ form_errors(form.title.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.authors.label }}
+                {{ form.authors }}
+
+                {{ form_errors(form.authors.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.categories.label }}
+                {{ form.categories }}
+
+                {{ form_errors(form.categories.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.thumbnail.label }}
+                {{ form.thumbnail }}
+
+                {{ form_errors(form.thumbnail.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label }}
+                {{ form.description }}
+
+                {{ form_errors(form.description.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.published_year.label }}
+                {{ form.published_year }}
+
+                {{ form_errors(form.published_year.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.average_rating.label }}
+                {{ form.average_rating }}
+
+                {{ form_errors(form.average_rating.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.num_pages.label }}
+                {{ form.num_pages }}
+
+                {{ form_errors(form.num_pages.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.ratings_count.label }}
+                {{ form.ratings_count }}
+
+                {{ form_errors(form.ratings_count.errors) }}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn--full") }}
+            </div>
+        </form>
+    </section>
+{% endblock %}

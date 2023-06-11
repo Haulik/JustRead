@@ -1,5 +1,5 @@
 from JustRead import db_cursor, conn
-from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author, BookOrder, BookOrder2
+from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author, BookOrder, BookOrder2, Booksforsale
 
 
 def get_user_by_user_name(user_name):
@@ -111,6 +111,33 @@ def insert_book_order(order: BookOrder):
     ))
     conn.commit()
     
+def insert_book(book: Book):
+    sql = """
+    INSERT INTO Books(title, authors, categories, thumbnail, description, published_year, average_rating, num_pages, ratings_count)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING pk
+    """
+    db_cursor.execute(sql, (
+        book.title,
+        book.authors,
+        book.categories,
+        book.thumbnail,
+        book.description,
+        book.published_year,
+        book.average_rating,
+        book.num_pages,
+        book.ratings_count
+    ))
+    conn.commit()
+    return db_cursor.fetchone().get('pk') if db_cursor.rowcount > 0 else None
+
+
+def insert_booksForSale(sell: Booksforsale):
+    sql = """
+    INSERT INTO booksforsale(bookstore_pk, books_pk)
+    VALUES (%s, %s)
+    """
+    db_cursor.execute(sql, (sell.bookstore_pk, sell.books_pk))
+    conn.commit()
     
     
 def get_all_produce():

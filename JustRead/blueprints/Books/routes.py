@@ -2,8 +2,8 @@ from flask import render_template, redirect, request, Blueprint
 from flask_login import login_required, current_user
 
 from JustRead.forms import FilterBookForm, AddBookForm, BuyBookForm
-from JustRead.models import Book, Order, BookOrder
-from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability, get_orders_by_customer_pk
+from JustRead.models import Book, Order, BookOrder, Booksforsale
+from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability, get_orders_by_customer_pk, insert_book, insert_booksForSale
 
 Books = Blueprint('book', __name__)
 
@@ -42,6 +42,32 @@ def buy_book(pk):
 def your_orders():
     orders = get_orders_by_customer_pk(current_user.pk)
     return render_template('pages/your-orders.html', orders=orders)
+
+@Books.route("/add-book", methods=['GET', 'POST'])
+@login_required
+def add_book():
+    form = AddBookForm()
+    if request.method == 'POST':
+        print("gres")
+        if form.validate_on_submit():
+            print("gres2")
+            book_data = dict(
+                title=form.title.data,
+                authors=form.authors.data,
+                categories=form.categories.data,
+                thumbnail=form.thumbnail.data,
+                description=form.description.data,
+                published_year=form.published_year.data,
+                average_rating=form.average_rating.data,
+                num_pages=form.num_pages.data,
+                ratings_count=form.ratings_count.data
+            )
+            book = Book(book_data)
+            new_book_pk = insert_book(book)
+            sell = Booksforsale(dict(bookstore_pk=current_user.pk, books_pk=new_book_pk, available=True))
+            insert_booksForSale(sell)
+            return redirect('/books')
+    return render_template('pages/add-book.html', form=form)
 
 
 # @Books.route("/add-book", methods=['GET', 'POST'])

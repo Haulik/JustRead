@@ -91,7 +91,13 @@ class Author:
         self.pid = pid
         self.name = name
         # Additional attributes specific to Author
-        
+
+
+class Booksforsale(ModelMixin):
+    def __init__(self, booksforsale_data: Dict):
+        self.available = booksforsale_data.get('available')
+        self.bookstore_pk = booksforsale_data.get('bookstore_pk')
+        self.books_pk = booksforsale_data.get('books_pk')
         
 class BookOrder(object):
     def __init__(self, book_order_data: Dict):
