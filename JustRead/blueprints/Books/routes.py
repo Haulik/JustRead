@@ -1,9 +1,9 @@
 from flask import render_template, redirect, request, Blueprint
 from flask_login import login_required, current_user
 
-from JustRead.forms import FilterBookForm, AddBookForm, BuyBookForm
+from JustRead.forms import FilterBookForm, AddBookForm, BuyBookForm, DeleteBookForm
 from JustRead.models import Book, Order, BookOrder, Booksforsale
-from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability, get_orders_by_customer_pk, insert_book, insert_booksForSale
+from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability, get_orders_by_customer_pk, insert_book, insert_booksForSale, delete_book
 
 Books = Blueprint('book', __name__)
 
@@ -37,6 +37,21 @@ def buy_book(pk):
             return redirect('/books')
     return render_template('pages/buy-book.html', form=form, book=book)
 
+
+@Books.route('/books/delete/<pk>', methods=['GET', 'POST'])
+@login_required
+def delete_book2(pk):
+    form = DeleteBookForm()
+    book = get_book_by_pk(pk)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            delete_book(book.pk)
+            # Additional logic specific to Book
+            update_book_availability(available=False,
+                        book_pk=book.pk,
+                        bookstore_pk=book.bookstore_pk)
+            return redirect('/books')
+    return render_template('pages/delete-book.html', form=form, book=book)
 
 @Books.route('/books/your-orders')
 def your_orders():

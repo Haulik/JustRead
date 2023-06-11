@@ -104,6 +104,14 @@ class BuyBookForm(FlaskForm):
         if not customer:
             raise ValidationError("You must be a customer in order to create orders.")
         
+class DeleteBookForm(FlaskForm):
+    submit = SubmitField('Yes, delete it')
+
+    def validate_submit(self, field):
+        bookstore = get_bookstore_by_pk(current_user.pk)
+        if not bookstore:
+            raise ValidationError("You must be a bookstore in order to delete a book.")
+        
         
 class RestockBookForm(FlaskForm):
     submit = SubmitField('Yes, restock it')

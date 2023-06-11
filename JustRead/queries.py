@@ -167,3 +167,9 @@ def update_book_availability(available, book_pk, bookstore_pk):
     """
     db_cursor.execute(sql, (available, book_pk, bookstore_pk))
     conn.commit()
+    
+# DELETE QUERIES
+def delete_book(book_pk):
+    sql = "DELETE FROM Books WHERE pk = %s"
+    db_cursor.execute(sql, (book_pk,))
+    conn.commit()

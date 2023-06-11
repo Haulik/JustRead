@@ -14,6 +14,7 @@
                 <h2>{{ book.title }}</h2>
                 <div class="buttons">
                     <a href="{{ url_for('book.buy_book', pk=book.pk) }}" class="btn2 smaller-btn">Buy</a>
+                    <a href="{{ url_for('book.delete_book2', pk=book.pk) }}" class="btn2 smaller-btn">Delete</a>
                 </div>
                 <div class="details">
                     <p><strong>Author:</strong><br>{{ book.authors }}</p>
