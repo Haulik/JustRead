@@ -44,7 +44,11 @@ Both implemented blueprints come with a routes.py file that initialize a Bluepri
 	- __/logout__: Logs user out and sends back to login page
 
 - Books:
-	- __/books__: Search page for books in the database
+	- __/books__: Page for books in the database
+	- __/books/buy/<pk>__: Page for books in the database
+	- __/books/delete/<pk>__: Page for deleting book from the database
+	- __/books/your-orders__: Page for your orders in the database
+	- __/books/add-book__: Page for adding book in the database
 
 ## How to interact with our web-app
 - As a customer: go to the top, right-hand corner and press “Sign up”. Enter your details and choose “Customer” at the bottom and press “Sign up”. Then you can press “Browse books” or “All books” to see available books, or you can view your orders by pressing “Your orders”. If you wish to buy a book, simply press “Buy book” and then “Yes, buy it”. This will move your chosen book to the “Your orders”.
