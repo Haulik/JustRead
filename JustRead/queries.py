@@ -127,7 +127,7 @@ def get_all_produce():
 # UPDATE QUERIES
 def update_book_availability(available, book_pk, bookstore_pk):
     sql = """
-    UPDATE Sell
+    UPDATE BooksForSale
     SET available = %s
     WHERE books_pk = %s
     AND bookstore_pk = %s

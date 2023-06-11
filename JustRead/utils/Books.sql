@@ -25,8 +25,6 @@ CREATE TABLE IF NOT EXISTS BooksForSale(
     PRIMARY KEY (bookstore_pk, books_pk)
 );
 
-CREATE INDEX IF NOT EXISTS BooksForSale_index
-ON BooksForSale (bookstore_pk, available);
 
 DELETE FROM BooksForSale;
 
@@ -56,7 +54,7 @@ SELECT b.title, b.authors, b.categories, b.thumbnail,
        b.pk as book_pk, bs.full_name as bookstore_name,
        bs.pk as bookstore_pk
 FROM Books b
-JOIN Sell s ON s.books_pk = b.pk
+JOIN BooksForSale s ON s.books_pk = b.pk
 JOIN BookStore bs ON s.bookstore_pk = bs.pk
 ORDER BY available, b.pk;
 

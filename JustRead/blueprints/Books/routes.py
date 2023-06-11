@@ -21,7 +21,7 @@ def books():
     return render_template('pages/book.html', books=books)
 
 
-@Books.route('/book/buy/<pk>', methods=['GET', 'POST'])
+@Books.route('/books/buy/<pk>', methods=['GET', 'POST'])
 @login_required
 def buy_book(pk):
     form = BuyBookForm()
@@ -38,7 +38,7 @@ def buy_book(pk):
     return render_template('pages/buy-book.html', form=form, book=book)
 
 
-@Books.route('/produce/your-orders')
+@Books.route('/books/your-orders')
 def your_orders():
     orders = get_orders_by_customer_pk(current_user.pk)
     return render_template('pages/your-orders.html', orders=orders)
