@@ -13,7 +13,7 @@
                 <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
                 <h2>{{ book.title }}</h2>
                 <div class="buttons">
-                    <button class="btn2 smaller-btn">Buy</button>
+                    <a href="{{ url_for('book.buy_book', pk=book.pk) }}" class="btn2 smaller-btn">Buy</a>
                 </div>
                 <div class="details">
                     <p><strong>Author:</strong><br>{{ book.authors }}</p>

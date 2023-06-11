@@ -5,7 +5,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 
-from JustRead.queries import get_user_by_user_name
+from JustRead.queries import get_user_by_user_name, get_customer_by_pk
 
 from JustRead.utils.choices import UserTypeChoices
 
@@ -90,3 +90,16 @@ class UserLoginForm(FlaskForm):
             raise ValidationError(f'User name "{self.user_name.data}" does not exist.')
         if user.password != self.password.data:
             raise ValidationError(f'User name or password are incorrect.')
+        
+        
+class BuyBookForm(FlaskForm):
+    submit = SubmitField('Yes, buy it')
+
+    def validate_submit(self, field):
+        customer = get_customer_by_pk(current_user.pk)
+        if not customer:
+            raise ValidationError("You must be a customer in order to create orders.")
+        
+        
+class RestockBookForm(FlaskForm):
+    submit = SubmitField('Yes, restock it')

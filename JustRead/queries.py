@@ -1,5 +1,5 @@
 from JustRead import db_cursor, conn
-from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author
+from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author, BookOrder
 
 
 def get_user_by_user_name(user_name):
@@ -24,13 +24,34 @@ def get_user_by_user_name(user_name):
 
 def get_books_by_filters():
     sql = """
-    SELECT * FROM books
+    SELECT * FROM vw_books
+    WHERE available != false
     """
     
 
     db_cursor.execute(sql)
-    produce = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
-    return produce
+    book = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    return book
+
+
+def get_customer_by_pk(pk):
+    sql = """
+    SELECT * FROM Customers
+    WHERE pk = %s
+    """
+    db_cursor.execute(sql, (pk,))
+    customer = Customer(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+    return customer
+
+
+def get_book_by_pk(pk):
+    sql = """
+    SELECT book_pk as pk, * FROM vw_books
+    WHERE book_pk = %s
+    """
+    db_cursor.execute(sql, (pk,))
+    books = Book(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+    return books
 
 
 
@@ -69,6 +90,18 @@ def insert_courier(courier: Courier):
     db_cursor.execute(sql, (courier.user_name, courier.full_name, courier.password, courier.address))
     conn.commit()
     
+def insert_book_order(order: BookOrder):
+    sql = """
+    INSERT INTO BookOrder(book_pk, bookstore_pk, customer_pk)
+    VALUES (%s, %s, %s)
+    """
+    db_cursor.execute(sql, (
+        order.book_pk,
+        order.bookstore_pk,
+        order.customer_pk,
+    ))
+    conn.commit()
+    
     
     
 def get_all_produce():
@@ -79,3 +112,16 @@ def get_all_produce():
     db_cursor.execute(sql)
     books = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
     return books
+
+
+
+# UPDATE QUERIES
+def update_book_availability(available, book_pk, bookstore_pk):
+    sql = """
+    UPDATE Sell
+    SET available = %s
+    WHERE books_pk = %s
+    AND bookstore_pk = %s
+    """
+    db_cursor.execute(sql, (available, book_pk, bookstore_pk))
+    conn.commit()
