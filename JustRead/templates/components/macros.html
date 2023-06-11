@@ -68,9 +68,9 @@
 
 
 {% macro book_card (book=None, show_checkout=True, show_restock=False, date=None) %}
-    <h1>Book Listing</h1>
     <div class="book-card">
         <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
+        <h2>{{ book.title }}</h2>
         <div class="details">
             <p><strong>Author:</strong><br>{{ book.authors }}</p>
             <p><strong>Categories:</strong><br>{{ book.categories }}</p>
