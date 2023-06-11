@@ -12,18 +12,14 @@ Books = Blueprint('book', __name__)
 
 @Books.route("/books", methods=['GET', 'POST'])
 def books():
-    return render_template('pages/book.html')
-#    form = FilterBookForm()
-#    title = 'Our books!'
-#    books = []
-#   if request.method == 'POST':
-#        books = get_books_by_filters(category=request.form.get('category'),
-#                                     title=request.form.get('title'),
-#                                     author=request.form.get('author'),
-#                                     year=request.form.get('year'),
-#                                     rating=request.form.get('rating'))
-#        title = f'Our {request.form.get("category")}!'
-#    return render_template('pages/books.html', books=books, form=form, title=title)
+    form = FilterBookForm()
+    title = 'Our books!'
+    books = []
+    if request.method == 'GET':
+        books = get_books_by_filters()
+        #title = f'Our {request.form.get("category")}!'
+    return render_template('pages/book.html', books=books)
+
 
 # @Books.route("/add-book", methods=['GET', 'POST'])
 # @login_required

@@ -8,53 +8,26 @@
 {% block content %}
     <h1>Book Listing</h1>
     <div class="book-container">
-        <!-- Book 1 -->
-        <div class="book-card">
-            <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
-            <h2>Book 1 Title</h2>
-            <div class="details">
-                <p><strong>Author:</strong><br> Author 1</p>
-                <p><strong>Categories:</strong><br> Fiction, Thriller</p>
-                <p><strong>Published Year:</strong><br> 2022</p>
-                <p><strong>Rating:</strong><br> 4.5/5</p>
-                <p><strong>Pages:</strong><br> 350</p>
-                <p><strong>Ratings Count:</strong><br> 500</p>
+        {% for book in books %}
+            <div class="book-card">
+                <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
+                <h2>{{ book.title }}</h2>
+                <div class="buttons">
+                    <button class="btn2 smaller-btn">Buy</button>
+                </div>
+                <div class="details">
+                    <p><strong>Author:</strong><br>{{ book.authors }}</p>
+                    <p><strong>Categories:</strong><br>{{ book.categories }}</p>
+                    <p><strong>Published Year:</strong><br>{{ book.published_year }}</p>
+                    <p><strong>Rating:</strong><br>{{ book.average_rating }}/5</p>
+                    <p><strong>Pages:</strong><br>{{ book.num_pages }}</p>
+                    <p><strong>Ratings Count:</strong><br>{{ book.ratings_count }}</p>
+                </div>
+                <div class="description" style="text-align: center;">
+                    <h3>Description</h3>
+                    {{ book.description }}
+                </div>
             </div>
-            <div class="description" style="text-align: center;">
-                <h3>Description</h3>
-                Nulla commodo magna quis fermentum posuere. Mauris tincidunt ipsum et mi convallis, nec scelerisque dolor eleifend.
-            </div>
-            <div class="buttons">
-                <button class="btn2 smaller-btn">Button 1</button>
-                <button class="btn2 smaller-btn">Button 2</button>
-            </div>
-        </div>
-
-        <!-- Book 2 -->
-        <div class="book-card">
-            <img src="{{ url_for('static', filename='images/book.png') }}" alt="Book 1">
-            <h2>Book 2 Title</h2>
-            <div class="details">
-                <p><strong>Author:</strong><br>Author 2</p>
-                <p><strong>Categories:</strong><br>Science, Non-Fiction</p>
-                <p><strong>Published Year:</strong><br>2021</p>
-                <p><strong>Rating:</strong><br>4.2/5</p>
-                <p><strong>Pages:</strong><br>400</p>
-                <p><strong>Ratings Count:</strong><br>300</p>
-            </div>
-            <div class="description" style="text-align: center;">
-                <h3>Description</h3>
-                Nulla commodo magna quis fermentum posuere. Mauris tincidunt ipsum et mi convallis, nec scelerisque dolor eleifend.
-            </div>
-            <div class="buttons">
-                <button class="btn2 smaller-btn">Button 1</button>
-                <button class="btn2 smaller-btn">Button 2</button>
-            </div>
-        </div>
-        
-
-        <!-- Add more book cards as needed -->
-
+        {% endfor %}
     </div>
 {% endblock %}
-

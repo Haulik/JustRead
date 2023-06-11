@@ -63,7 +63,6 @@ h1 {
     text-align: left;
     color: #666;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
 }
 
 .book-card .description p {
@@ -86,7 +85,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-  .btn2, a.btn2 {
+.btn2, a.btn2 {
     background-color: var(--green);
     color: var(--white);
     display: grid;
@@ -101,5 +100,7 @@ h1 {
     padding: 0 var(--margin-md);
     min-width: max-content;
     margin-top: 5px;
-    margin-right: 10px;
-  }
+    margin-left: auto;
+    margin-right: auto;
+}
+  
