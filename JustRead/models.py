@@ -91,3 +91,11 @@ class Author:
         self.pid = pid
         self.name = name
         # Additional attributes specific to Author
+        
+        
+class BookOrder(object):
+    def __init__(self, book_order_data: Dict):
+        self.pk = book_order_data.get('pk')
+        self.customer_pk = book_order_data.get('customer_pk')
+        self.bookstore_pk = book_order_data.get('bookstore_pk')
+        self.book_pk = book_order_data.get('book_pk')
