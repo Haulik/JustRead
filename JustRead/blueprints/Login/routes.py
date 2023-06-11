@@ -1,8 +1,5 @@
 from flask import render_template, redirect, request, Blueprint
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length
 
 from JustRead.models import User, BookStore, Customer, Courier
 from JustRead.queries import get_user_by_user_name, insert_bookStore, insert_customer, insert_courier

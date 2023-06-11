@@ -1,5 +1,5 @@
 {% macro cta_button (class='') %}
-    <a class="btn {{ class }}" >
+    <a class="btn {{ class }}" href="{{ url_for('book.books') }}">
         <span>
             <img src="{{ url_for('static', filename='images/icons/cart.svg') }}" alt="cart" class="icon">
             Start shopping
@@ -23,47 +23,6 @@
         {% endfor %}
         {{ form.category.options }}
     </select>
-{% endmacro %}
-
-
-{% macro filter_produce_form (form=None, sold_by=True) %}
-    <form method="POST">
-        {{ form.hidden_tag() }}
-
-        <div class="form--row">
-            <div class="form-group">
-                {{ form.category.label }}
-                {{ form.category }}
-            </div>
-
-            <div class="form-group">
-                {{ form.item.label }}
-                {{ form.item }}
-            </div>
-
-            <div class="form-group">
-                {{ form.variety.label }}
-                {{ form.variety }}
-            </div>
-        </div>
-
-        <div class="form--row">
-            {% if sold_by %}
-                <div class="form-group">
-                    {{ form.sold_by.label }}
-                    {{ form.sold_by }}
-                </div>
-            {% endif %}
-
-            <div class="form-group">
-                {{ form.price.label }}
-                {{ form.price }}
-            </div>
-
-            {{ form.submit(class="btn") }}
-            <a href="{{ url_for('Produce.produce') }}" class="btn">Clear filters</a>
-        </div>
-    </form>
 {% endmacro %}
 
 

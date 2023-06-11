@@ -16,11 +16,7 @@
 {% include 'components/navbar.html' %}
 <main>
     {% block content %}
-        {# TODO: dont show this unless user.is_superuser #}
-        <p>
-            This is the base template that includes required css and should be extended
-            by all other templates to keep code DRY
-        </p>
+
     {% endblock %}
 </main>
 {% include 'components/footer.html' %}

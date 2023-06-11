@@ -3,7 +3,7 @@ import pandas as pd
 
 from JustRead import app
 
-DATASET_PATH = os.path.join(app.root_path, 'dataset', 'test.csv')
+DATASET_PATH = os.path.join(app.root_path, 'dataset', 'books.csv')
 
 
 def get_label_name(string):
@@ -27,13 +27,9 @@ class ModelChoices:
 
 df = pd.read_csv(DATASET_PATH, sep=',')
 
-#ProduceCategoryChoices = ModelChoices(df.category.unique())
-#ProduceItemChoices = ModelChoices(df.item.unique())
-#ProduceVarietyChoices = ModelChoices(df.variety.unique())
-#ProduceUnitChoices = ModelChoices(df.unit.unique())
 
 UserTypeChoices = ModelChoices(['BookStore', 'Customer', 'Courier'])
 
 if __name__ == '__main__':
     print(df.item.unique())
-    #print(ProduceItemChoices.choices())
+

@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from psycopg2 import sql
 from typing import Dict
-from JustRead import login_manager, db_cursor, conn, app
+from JustRead import login_manager, db_cursor
 
 
 @login_manager.user_loader

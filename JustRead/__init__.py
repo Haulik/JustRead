@@ -33,7 +33,7 @@ with conn.cursor() as cur:
     args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", book).decode('utf-8') for book in all_books)
     cur.execute("INSERT INTO Books (title, authors, categories, thumbnail, description, published_year, average_rating, num_pages, ratings_count) VALUES " + args_str)
 
-    # Dummy Book 1 sells all produce
+    # Dummy Book 1 sells all book
     for_sales = [(1, i) for i in range(1, len(all_books) + 1)]
     args_str = ','.join(cur.mogrify("(%s, %s)", sale).decode('utf-8') for sale in for_sales)
     cur.execute("INSERT INTO BooksForSale (bookstore_pk, books_pk) VALUES " + args_str)
