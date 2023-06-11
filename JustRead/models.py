@@ -99,3 +99,23 @@ class BookOrder(object):
         self.customer_pk = book_order_data.get('customer_pk')
         self.bookstore_pk = book_order_data.get('bookstore_pk')
         self.book_pk = book_order_data.get('book_pk')
+        
+class BookOrder2(object):
+    def __init__(self, book_order_data: Dict):
+        self.pk = book_order_data.get('pk')
+        self.customer_pk = book_order_data.get('customer_pk')
+        self.bookstore_pk = book_order_data.get('bookstore_pk')
+        self.book_pk = book_order_data.get('book_pk')
+        
+        self.created_at = book_order_data.get('created_at')
+        self.pk = book_order_data.get('pk')
+        self.title = book_order_data.get('title')
+        self.authors = book_order_data.get('authors')
+        self.categories = book_order_data.get('categories')
+        self.thumbnail = book_order_data.get('thumbnail')
+        self.description = book_order_data.get('description')
+        self.published_year = book_order_data.get('published_year')
+        self.average_rating = book_order_data.get('average_rating')
+        self.num_pages = book_order_data.get('num_pages')
+        self.ratings_count = book_order_data.get('booratings_countk_pk')
+        

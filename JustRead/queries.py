@@ -1,5 +1,5 @@
 from JustRead import db_cursor, conn
-from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author, BookOrder
+from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author, BookOrder, BookOrder2
 
 
 def get_user_by_user_name(user_name):
@@ -21,6 +21,15 @@ def get_user_by_user_name(user_name):
 #     db_cursor.execute(sql, (sell.farmer_pk, sell.produce_pk,))
 #     conn.commit()
 
+def get_orders_by_customer_pk(pk):
+    sql = """
+    SELECT * FROM BookOrder po
+    JOIN books p ON p.pk = po.book_pk
+    WHERE customer_pk = %s
+    """
+    db_cursor.execute(sql, (pk,))
+    orders = [BookOrder2(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    return orders
 
 def get_books_by_filters():
     sql = """

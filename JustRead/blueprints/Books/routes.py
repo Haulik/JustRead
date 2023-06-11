@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from JustRead.forms import FilterBookForm, AddBookForm, BuyBookForm
 from JustRead.models import Book, Order, BookOrder
-from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability
+from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability, get_orders_by_customer_pk
 
 Books = Blueprint('book', __name__)
 
@@ -37,6 +37,11 @@ def buy_book(pk):
         return redirect('/books')
     return render_template('pages/buy-book.html', form=form, book=book)
 
+
+@Books.route('/produce/your-orders')
+def your_orders():
+    orders = get_orders_by_customer_pk(current_user.pk)
+    return render_template('pages/your-orders.html', orders=orders)
 
 
 # @Books.route("/add-book", methods=['GET', 'POST'])

@@ -5,12 +5,13 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}">
 {% endblock %}
 
 {% block content %}
     <section class="form-wrapper">
         <h2 style="text-align: center">Are you sure you want to buy this book?</h2>
-        {{ book_card(book=booko, show_checkout=False, show_restock=False) }}
+        {{ book_card(book=book, show_checkout=False, show_restock=False) }}
         <form method="POST" action="">
             {{ form.hidden_tag() }}
 
