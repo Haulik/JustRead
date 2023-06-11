@@ -76,20 +76,19 @@ class Order(Base):
     # Additional columns specific to Order
 
 
-class Book(Base):
-    __tablename__ = 'books'
-
-    isbn13 = Column(String(13), primary_key=True)
-    title = Column(String(30))
-    subtitle = Column(String(30))
-    categories = Column(String(30))
-    thumbnail = Column(String(30))
-    description = Column(String)
-    published_year = Column(Integer)
-    average_rating = Column(Float)
-    num_pages = Column(Integer)
-    ratings_count = Column(Integer)
-    # Additional columns specific to Book
+class Book(ModelMixin):
+    def __init__(self, book_data: Dict):
+        self.pk = book_data.get('pk')
+        self.title = book_data.get('title')
+        self.authors = book_data.get('authors')
+        self.categories = book_data.get('categories')
+        self.thumbnail = book_data.get('thumbnail')
+        self.description = book_data.get('description')
+        self.published_year = book_data.get('published_year')
+        self.average_rating = book_data.get('average_rating')
+        self.num_pages = book_data.get('num_pages')
+        self.ratings_count = book_data.get('ratings_count')
+        # Additional attributes specific to Book
 
 
 class Author(Base):

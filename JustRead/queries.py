@@ -22,31 +22,15 @@ def get_user_by_user_name(user_name):
 #     conn.commit()
 
 
-def get_books_by_filters(category=None, title=None, author=None, year=None, rating=None, user_id=None):
+def get_books_by_filters():
     sql = """
     SELECT * FROM books
-    WHERE
     """
-    conditionals = []
-    if category:
-        conditionals.append(f"categories = '{category}'")
-    if title:
-        conditionals.append(f"title = '{title}'")
-    if author:
-        conditionals.append(f"author = '{author}'")
-    if year:
-        conditionals.append(f"published_year = {year}")
-    if rating:
-        conditionals.append(f"average_rating >= {rating}")
-    if user_id:
-        conditionals.append(f"user_id = {user_id}")
+    
 
-    args_str = ' AND '.join(conditionals)
-    order = " ORDER BY published_year"
-    query = sql + args_str + order
-
-    books = Book.query.filter_by(user_id=user_id).all() if user_id else Book.query.all()
-    return books
+    db_cursor.execute(sql)
+    produce = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    return produce
 
 
 
@@ -84,3 +68,14 @@ def insert_courier(courier: Courier):
     """
     db_cursor.execute(sql, (courier.user_name, courier.full_name, courier.password, courier.address))
     conn.commit()
+    
+    
+    
+def get_all_produce():
+    sql = """
+    SELECT *
+    FROM books
+    """
+    db_cursor.execute(sql)
+    books = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    return books
