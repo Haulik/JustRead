@@ -1,4 +1,4 @@
-from JustRead2 import app
+from JustRead import app
 
 if __name__ == '__main__':
     app.run(debug=True)

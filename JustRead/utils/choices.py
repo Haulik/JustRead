@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from JustRead2 import app
+from JustRead import app
 
 DATASET_PATH = os.path.join(app.root_path, 'dataset', 'test.csv')
 

@@ -5,7 +5,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from psycopg2 import sql
 from typing import Dict
-from JustRead2 import login_manager, db_cursor, conn, app
+from JustRead import login_manager, db_cursor, conn, app
 
 
 Base = declarative_base()

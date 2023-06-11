@@ -1,4 +1,4 @@
-from JustRead2 import app
+from JustRead import app
 
 
 @app.template_filter('format_data')

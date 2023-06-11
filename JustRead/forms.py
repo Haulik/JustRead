@@ -5,9 +5,9 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 
-from JustRead2.queries import get_user_by_user_name
+from JustRead.queries import get_user_by_user_name
 
-from JustRead2.utils.choices import UserTypeChoices
+from JustRead.utils.choices import UserTypeChoices
 
 class FilterBookForm(FlaskForm):
     category = SelectField('Category')

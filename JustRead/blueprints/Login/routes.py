@@ -4,10 +4,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length
 
-from JustRead2.models import User, BookStore, Customer, Courier
-from JustRead2.queries import get_user_by_user_name, insert_bookStore, insert_customer, insert_courier
-from JustRead2.utils.choices import UserTypeChoices
-from JustRead2.forms import UserLoginForm, UserSignupForm
+from JustRead.models import User, BookStore, Customer, Courier
+from JustRead.queries import get_user_by_user_name, insert_bookStore, insert_customer, insert_courier
+from JustRead.utils.choices import UserTypeChoices
+from JustRead.forms import UserLoginForm, UserSignupForm
 
 login_manager = LoginManager()
 
