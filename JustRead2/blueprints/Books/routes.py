@@ -1,9 +1,9 @@
 from flask import render_template, request, Blueprint
 from flask_login import login_required, current_user
 
-from JustRead.forms import FilterBookForm, AddBookForm
-from JustRead.models import Book, Order
-from JustRead.queries import get_books_by_filters
+from JustRead2.forms import FilterBookForm, AddBookForm
+from JustRead2.models import Book, Order
+from JustRead2.queries import get_books_by_filters
 
 Books = Blueprint('book', __name__)
 

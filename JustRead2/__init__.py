@@ -33,8 +33,8 @@ def load_user(user_id):
     # Create a User object and return it
     return User(user_id)
 
-from JustRead.blueprints.Login.routes import Login
-from JustRead.blueprints.Books.routes import Books
+from JustRead2.blueprints.Login.routes import Login
+from JustRead2.blueprints.Books.routes import Books
 
 app.register_blueprint(Login)
 app.register_blueprint(Books)

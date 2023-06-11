@@ -1,5 +1,5 @@
-from JustRead import db_cursor, conn
-from JustRead.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author
+from JustRead2 import db_cursor, conn
+from JustRead2.models import User, BookStore, Customer, Courier, PublishingHouse, Order, Book, Author
 
 
 def get_user_by_user_name(user_name):
