@@ -1,9 +1,9 @@
-from flask import render_template, request, Blueprint
+from flask import render_template, redirect, request, Blueprint
 from flask_login import login_required, current_user
 
-from JustRead.forms import FilterBookForm, AddBookForm
-from JustRead.models import Book, Order
-from JustRead.queries import get_books_by_filters
+from JustRead.forms import FilterBookForm, AddBookForm, BuyBookForm
+from JustRead.models import Book, Order, BookOrder
+from JustRead.queries import get_books_by_filters, get_book_by_pk, insert_book_order, update_book_availability
 
 Books = Blueprint('book', __name__)
 
@@ -19,6 +19,24 @@ def books():
         books = get_books_by_filters()
         #title = f'Our {request.form.get("category")}!'
     return render_template('pages/book.html', books=books)
+
+
+@Books.route('/book/buy/<pk>', methods=['GET', 'POST'])
+@login_required
+def buy_book(pk):
+    form = BuyBookForm()
+    book = get_book_by_pk(pk)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            order = BookOrder(dict(book_pk=book.pk, bookstore_pk=book.bookstore_pk, customer_pk=current_user.pk))
+            insert_book_order(order)
+            # Additional logic specific to Book
+            update_book_availability(available=False,
+                        book_pk=book.pk,
+                        bookstore_pk=book.bookstore_pk)
+        return redirect('/books')
+    return render_template('pages/buy-book.html', form=form, book=book)
+
 
 
 # @Books.route("/add-book", methods=['GET', 'POST'])

@@ -35,4 +35,31 @@ DELETE FROM BooksForSale;
 --ON Produce (category, item, variety);
 
 
+DROP TABLE IF EXISTS BookOrder;
+
+CREATE TABLE IF NOT EXISTS BookOrder(
+    pk serial not null PRIMARY KEY,
+    customer_pk int not null REFERENCES Customers(pk) ON DELETE CASCADE,
+    bookstore_pk int not null REFERENCES BookStore(pk) ON DELETE CASCADE,
+    book_pk int not null REFERENCES Books(pk) ON DELETE CASCADE,
+    created_at timestamp not null default current_timestamp
+);
+
+DELETE FROM BookOrder;
+
+
+CREATE OR REPLACE VIEW vw_books
+AS
+SELECT b.title, b.authors, b.categories, b.thumbnail,
+       b.description, b.published_year, b.average_rating,
+       b.num_pages, b.ratings_count, s.available,
+       b.pk as book_pk, bs.full_name as bookstore_name,
+       bs.pk as bookstore_pk
+FROM Books b
+JOIN Sell s ON s.books_pk = b.pk
+JOIN BookStore bs ON s.bookstore_pk = bs.pk
+ORDER BY available, b.pk;
+
+
+
 

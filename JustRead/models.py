@@ -68,7 +68,7 @@ class Order:
 
 class Book(ModelMixin):
     def __init__(self, book_data: Dict):
-        self.pk = book_data.get('pk')
+        self.pk = book_data.get('book_pk')
         self.title = book_data.get('title')
         self.authors = book_data.get('authors')
         self.categories = book_data.get('categories')
@@ -78,6 +78,11 @@ class Book(ModelMixin):
         self.average_rating = book_data.get('average_rating')
         self.num_pages = book_data.get('num_pages')
         self.ratings_count = book_data.get('ratings_count')
+        # From JOIN w/ Sell relation
+        self.available = book_data.get('available')
+        self.book_pk = book_data.get('book_pk')
+        self.bookstore_name = book_data.get('bookstore_name')
+        self.bookstore_pk = book_data.get('bookstore_pk')
         # Additional attributes specific to Book
 
 
