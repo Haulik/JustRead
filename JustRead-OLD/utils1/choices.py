@@ -3,7 +3,7 @@ import pandas as pd
 
 from JustRead import app
 
-DATASET_PATH = os.path.join(app.root_path, 'dataset', 'test.csv')
+DATASET_PATH = os.path.join(app.root_path, 'dataset', 'books.csv')
 
 
 def get_label_name(string):

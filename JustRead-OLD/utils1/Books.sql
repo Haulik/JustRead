@@ -15,8 +15,5 @@ CREATE TABLE IF NOT EXISTS Books(
 
 DELETE FROM Books;
 
---CREATE INDEX IF NOT EXISTS produce_index
---ON Produce (category, item, variety);
-
 
 

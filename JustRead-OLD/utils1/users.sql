@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS Users CASCADE;
 
 CREATE TABLE IF NOT EXISTS Users(
-	id serial not null PRIMARY KEY,
+	pk serial not null PRIMARY KEY,
 	user_name varchar(50) UNIQUE,
     full_name varchar(50),
 	password varchar(120),
-    address varchar(200),
+    address varchar(200)
 );
 
 --CREATE INDEX IF NOT EXISTS users_index
@@ -16,7 +16,7 @@ DELETE FROM Users;
 DROP TABLE IF EXISTS BookStore CASCADE;
 
 CREATE TABLE IF NOT EXISTS BookStore(
-    PRIMARY KEY(id)
+    PRIMARY KEY(pk)
 ) INHERITS (Users);
 
 --CREATE INDEX IF NOT EXISTS bookstore_index
@@ -30,7 +30,7 @@ VALUES ('Bookstore1', 'Saxo', 'pass', 'Universitetsparken 34');
 DROP TABLE IF EXISTS Customers;
 
 CREATE TABLE IF NOT EXISTS Customers(
-    PRIMARY KEY(id)
+    PRIMARY KEY(pk)
 ) INHERITS (Users);
 
 --CREATE INDEX IF NOT EXISTS customers_index
@@ -43,7 +43,7 @@ VALUES ('customer', 'Customer', 'pass', 'Nørre alle 63');
 
 
 CREATE TABLE IF NOT EXISTS Courier(
-    PRIMARY KEY(id)
+    PRIMARY KEY(pk)
 ) INHERITS (Users);
 
 --CREATE INDEX IF NOT EXISTS customers_index

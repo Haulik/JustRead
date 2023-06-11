@@ -12,5 +12,3 @@ DELETE FROM Order;
 --CREATE INDEX IF NOT EXISTS produce_index
 --ON Produce (category, item, variety);
 
-
-

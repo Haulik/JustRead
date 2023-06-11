@@ -17,22 +17,23 @@ if __name__ == '__main__':
         # Run users.sql
         with open('users.sql') as db_file:
             cur.execute(db_file.read())
-        # Run produce.sql
-        with open('produce.sql') as db_file:
+        # Run Books.sql
+        with open('Books.sql') as db_file:
             cur.execute(db_file.read())
 
-        # Import all produce from the dataset
-        all_produce = list(
+        # Import all Books from the dataset
+        all_books = list(
             map(lambda x: tuple(x),
-                df[['category', 'item', 'unit', 'variety', 'price']].to_records(index=False))
+                df[['isbn13', 'title', 'authors', 'categories', 'thumbnail', 'description',
+                    'published_year', 'average_rating', 'num_pages', 'ratings_count']].to_records(index=False))
         )
-        args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", i).decode('utf-8') for i in all_produce)
-        cur.execute("INSERT INTO Produce (category, item, unit, variety, price) VALUES " + args_str)
+        args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", i).decode('utf-8') for i in all_books)
+        cur.execute("INSERT INTO Books (isbn13, title, authors, categories, thumbnail, description, published_year, average_rating, num_pages, ratings_count) VALUES " + args_str)
 
         # Dummy farmer 1 sells all produce
-        dummy_sales = [(1, i) for i in range(1, len(all_produce) + 1)]
+        dummy_sales = [(1, i) for i in range(1, len(all_books) + 1)]
         args_str = ','.join(cur.mogrify("(%s, %s)", i).decode('utf-8') for i in dummy_sales)
-        cur.execute("INSERT INTO Sell (farmer_pk, produce_pk) VALUES " + args_str)
+        cur.execute("INSERT INTO Sell (bookstore_pk, books_pk) VALUES " + args_str)
 
         conn.commit()
 
