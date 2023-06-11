@@ -16,19 +16,19 @@ CREATE TABLE IF NOT EXISTS Books(
 DELETE FROM Books;
 
 
-DROP TABLE IF EXISTS Sell;
+DROP TABLE IF EXISTS BooksForSale;
 
-CREATE TABLE IF NOT EXISTS Sell(
+CREATE TABLE IF NOT EXISTS BooksForSale(
     bookstore_pk int not null REFERENCES BookStore(pk) ON DELETE CASCADE,
     books_pk int not null REFERENCES Books(pk) ON DELETE CASCADE,
     available boolean default true,
     PRIMARY KEY (bookstore_pk, books_pk)
 );
 
-CREATE INDEX IF NOT EXISTS sell_index
-ON Sell (bookstore_pk, available);
+CREATE INDEX IF NOT EXISTS BooksForSale_index
+ON BooksForSale (bookstore_pk, available);
 
-DELETE FROM Sell;
+DELETE FROM BooksForSale;
 
 
 --CREATE INDEX IF NOT EXISTS produce_index
