@@ -1,0 +1,51 @@
+# Just Read
+## Initialization
+
+Clone / download repository files and run the following to install the required packages (preferably within a venv):
+	pip install -r requirements.txt
+
+Create a new database in pgAdmin named JustRead and create an .env file and add the following to the env.file:
+	SECRET_KEY=<secret_key>
+	DB_USERNAME=postgres || <postgres_user_name>
+	DB_PASSWORD=<postgres_user_password>
+	DB_NAME=Just Read || <postgres_db_name>
+
+When all this information is present (and correct) the server can be started with:
+	flask run
+
+## Folder setup
+
+The app is divided into multiple folders similar to the structure of the Green Groceries example project, with a few tweaks:
+
+- blueprints: Contains the separate blueprints of the app (with the submodules Books and Login containing different parts of the functionality)
+- dataset: Contains the books.csv file used to import the book data
+- static: Contains static files such as images and css
+- templates: Contains all html files that are displayed in the user browser
+- utils: Contains the sql files and script that generate the postgresql database. This folder further includes a script that generates custom choice objects for Flask forms. These choice objects are created based on the books dataset, allowing us to populate select fields in forms with relevant options.
+
+At the root folder of the app (./JustRead) six more scripts are present with the following roles:
+
+- __init__.py: Initializes the flask app and creates a connection to the database (and a cursor object for future queries)
+- app.py: Runs the app created by __init__.py
+- filters.py: Implements custom template filters for nicer formatting of data in the frontend
+- forms.py: Implements forms used to save data from users
+- models.py: Implements custom classes for each of the database tables to store data in a clean OOP manner
+- queries.py: Implements functions for each needed query to the database used inside the app
+
+## Routes 
+Both implemented blueprints come with a routes.py file that initialize a Blueprint object and define routes for the app.
+
+- Login:
+	- __/home__: Home page
+	- __/about__: About page
+	- __/style-guide__: Style guide (displays all html elements used)
+	- __/login__: User login page
+	- __/signup__: User signup (creation) page
+	- __/logout__: Logs user out and sends back to login page
+
+- Books:
+	- __/books__: Search page for books in the database
+
+# Known issues
+- We meant to implement the E/R diagram as included in the folder. However, due to the time constraints of this assignment, we did not manage to do this fully. Therefore the “rating” relation has not been implemented completely and in our project only book stores can rate a book when adding a book. Thus the customer can give ratings to neither book stores nor to books.
+- Furthermore, we have included, but not fully implemented the courier entity. This is also due to the time constraints of this assignment as well as to the complexity of such an implementation.
