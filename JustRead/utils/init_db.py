@@ -28,7 +28,7 @@ if __name__ == '__main__':
                     'published_year', 'average_rating', 'num_pages', 'ratings_count']].to_records(index=False))
         )
         args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", i).decode('utf-8') for i in all_books)
-        cur.execute("INSERT INTO Books (category, item, unit, variety, price) VALUES " + args_str)
+        cur.execute("INSERT INTO Books (isbn13, title, authors, categories, thumbnail, description, published_year, average_rating, num_pages, ratings_count) VALUES " + args_str)
 
         # Dummy farmer 1 sells all produce
         dummy_sales = [(1, i) for i in range(1, len(all_books) + 1)]

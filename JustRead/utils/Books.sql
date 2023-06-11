@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS Books CASCADE;
 
 CREATE TABLE IF NOT EXISTS Books(
-    isbn13 int PRIMARY KEY,
+    pk serial not null PRIMARY KEY,
     title VARCHAR(1000),
     authors VARCHAR(1000),
     categories VARCHAR(1000),
@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS Sell;
 
 CREATE TABLE IF NOT EXISTS Sell(
     bookstore_pk int not null REFERENCES BookStore(pk) ON DELETE CASCADE,
-    books_pk int not null REFERENCES Books(isbn13) ON DELETE CASCADE,
+    books_pk int not null REFERENCES Books(pk) ON DELETE CASCADE,
     available boolean default true,
     PRIMARY KEY (bookstore_pk, books_pk)
 );

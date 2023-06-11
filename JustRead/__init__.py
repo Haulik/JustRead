@@ -3,10 +3,12 @@ import psycopg2
 from flask import Flask
 from flask_login import LoginManager, UserMixin
 from psycopg2.extras import RealDictCursor
-from JustRead.utils.choices import df
+import numpy as np
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+from JustRead.utils.choices import df
 
 conn_params = {
     'host': 'localhost',
@@ -17,29 +19,27 @@ conn_params = {
 
 conn = psycopg2.connect(**conn_params)
 with conn.cursor() as cur:
-        # Run users.sql
-        with open('users.sql') as db_file:
-            cur.execute(db_file.read())
-        # Run Books.sql
-        with open('Books.sql') as db_file:
-            cur.execute(db_file.read())
+    # Run users.sql
+    with open('utils/users.sql') as db_file:
+        cur.execute(db_file.read())
+    # Run Books.sql
+    with open('utils/Books.sql') as db_file:
+        cur.execute(db_file.read())
 
-        # Import all Books from the dataset
-        all_books = list(
-            map(lambda x: tuple(x),
-                df[['isbn13', 'title', 'authors', 'categories', 'thumbnail', 'description',
-                    'published_year', 'average_rating', 'num_pages', 'ratings_count']].to_records(index=False))
-        )
-        args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", i).decode('utf-8') for i in all_books)
-        cur.execute("INSERT INTO Books (category, item, unit, variety, price) VALUES " + args_str)
+    # Import all Books from the dataset
+    all_books = df[['title', 'authors', 'categories', 'thumbnail', 'description',
+                    'published_year', 'average_rating', 'num_pages', 'ratings_count']].to_records(index=False)
+    all_books = [tuple(map(lambda x: x.item() if isinstance(x, np.int64) else x, book)) for book in all_books]
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", book).decode('utf-8') for book in all_books)
+    cur.execute("INSERT INTO Books (title, authors, categories, thumbnail, description, published_year, average_rating, num_pages, ratings_count) VALUES " + args_str)
 
-        # Dummy farmer 1 sells all produce
-        dummy_sales = [(1, i) for i in range(1, len(all_books) + 1)]
-        args_str = ','.join(cur.mogrify("(%s, %s)", i).decode('utf-8') for i in dummy_sales)
-        cur.execute("INSERT INTO Sell (bookstore_pk, books_pk) VALUES " + args_str)
+    # Dummy Book 1 sells all produce
+    dummy_sales = [(1, i) for i in range(1, len(all_books) + 1)]
+    args_str = ','.join(cur.mogrify("(%s, %s)", sale).decode('utf-8') for sale in dummy_sales)
+    cur.execute("INSERT INTO Sell (bookstore_pk, books_pk) VALUES " + args_str)
 
-        conn.commit()
-        
+    conn.commit()
+
 db_cursor = conn.cursor(cursor_factory=RealDictCursor)
 
 login_manager = LoginManager(app)
@@ -63,4 +63,3 @@ from JustRead.blueprints.Books.routes import Books
 
 app.register_blueprint(Login)
 app.register_blueprint(Books)
-
