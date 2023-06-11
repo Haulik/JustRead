@@ -12,6 +12,14 @@ def get_user_by_user_name(user_name):
     return user
 
 
+def get_all_produce():
+    sql = """
+    SELECT *
+    FROM books
+    """
+    db_cursor.execute(sql)
+    books = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
+    return books
 
 # def insert_sell(sell: Sell):
 #     sql = """
@@ -149,18 +157,6 @@ def insert_booksForSale(sell: Booksforsale):
     db_cursor.execute(sql, (sell.bookstore_pk, sell.books_pk))
     conn.commit()
     
-    
-def get_all_produce():
-    sql = """
-    SELECT *
-    FROM books
-    """
-    db_cursor.execute(sql)
-    books = [Book(res) for res in db_cursor.fetchall()] if db_cursor.rowcount > 0 else []
-    return books
-
-
-
 # UPDATE QUERIES
 def update_book_availability(available, book_pk, bookstore_pk):
     sql = """
