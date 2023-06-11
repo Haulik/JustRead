@@ -5,7 +5,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField, FloatField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange
 
-from JustRead.queries import get_user_by_user_name, get_customer_by_pk
+from JustRead.queries import get_user_by_user_name, get_customer_by_pk, get_bookstore_by_pk
 
 from JustRead.utils.choices import UserTypeChoices
 
@@ -26,6 +26,11 @@ class AddBookForm(FlaskForm):
     num_pages = IntegerField('Number of Pages', validators=[DataRequired()])
     ratings_count = IntegerField('Ratings Count', validators=[DataRequired()])
     submit = SubmitField('Add Book')
+    
+    def validate_submit(self, field):
+        bookstore = get_bookstore_by_pk(current_user.pk)
+        if not bookstore:
+            raise ValidationError("You must be a bookstore in order to create books.")
 
 class UserLoginForm(FlaskForm):
     user_name = StringField('Username',

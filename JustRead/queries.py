@@ -53,6 +53,16 @@ def get_customer_by_pk(pk):
     return customer
 
 
+def get_bookstore_by_pk(pk):
+    sql = """
+    SELECT * FROM Bookstore
+    WHERE pk = %s
+    """
+    db_cursor.execute(sql, (pk,))
+    bookstore = BookStore(db_cursor.fetchone()) if db_cursor.rowcount > 0 else None
+    return bookstore
+
+
 def get_book_by_pk(pk):
     sql = """
     SELECT book_pk as pk, * FROM vw_books

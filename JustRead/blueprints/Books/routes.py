@@ -34,7 +34,7 @@ def buy_book(pk):
             update_book_availability(available=False,
                         book_pk=book.pk,
                         bookstore_pk=book.bookstore_pk)
-        return redirect('/books')
+            return redirect('/books')
     return render_template('pages/buy-book.html', form=form, book=book)
 
 
@@ -48,9 +48,7 @@ def your_orders():
 def add_book():
     form = AddBookForm()
     if request.method == 'POST':
-        print("gres")
         if form.validate_on_submit():
-            print("gres2")
             book_data = dict(
                 title=form.title.data,
                 authors=form.authors.data,
